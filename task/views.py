@@ -23,3 +23,10 @@ class TaskListView(generic.ListView):
         return Task.objects.order_by("is_done", "-created")
 
 
+class TaskCreateView(generic.CreateView):
+    model = Task
+    fields = ["content", "deadline", "tags"]
+    success_url = reverse_lazy("task:index")
+    template_name = "task/task_form.html"
+
+
