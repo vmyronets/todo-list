@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Todo List</h1>
+  <a href="{% url 'task:task-create' %}" class="btn btn-primary mb-3">Add Task</a>
+
+  <div class="list-group">
+    {% for task in task_list %}
+      <div class="list-group-item {% if task.is_done %}list-group-item-success{% endif %}">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ task.content }}</h5>
+          <small>Created: {{ task.created|date:"Y-m-d H:i" }}</small>
+        </div>
+
+        {% if task.deadline %}
+          <p class="mb-1">Deadline: {{ task.deadline|date:"Y-m-d H:i" }}</p>
+        {% endif %}
+
+        {% if task.tags.all %}
+          <div class="mb-2">
+            {% for tag in task.tags.all %}
+              <span class="badge bg-info">{{ tag.name }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="btn-group" role="group">
+          <a href="{% url 'task:task-update' task.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+          <a href="{% url 'task:task-delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+          {% if task.is_done %}
+            <a href="{% url 'task:task-toggle' task.id %}" class="btn btn-sm btn-outline-secondary">Undo</a>
+          {% else %}
+            <a href="{% url 'task:task-toggle' task.id %}" class="btn btn-sm btn-outline-success">Complete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <div class="list-group-item">
+        <p>No tasks yet. Add your first task!</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
