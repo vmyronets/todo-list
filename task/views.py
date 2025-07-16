@@ -56,3 +56,10 @@ class TagListView(generic.ListView):
     context_object_name = "tag_list"
 
 
+class TagCreateView(generic.CreateView):
+    model = Tag
+    fields = ["name"]
+    success_url = reverse_lazy("task:tags-list")
+    template_name = "task/tag_form.html"
+
+
