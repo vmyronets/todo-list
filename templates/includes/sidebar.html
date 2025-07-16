@@ -1,0 +1,10 @@
+<div class="sidebar-nav">
+  <div class="list-group">
+    <a href="{% url 'task:index' %}" class="list-group-item list-group-item-action {% if request.path == '/' %}active{% endif %}">
+      <i class="bi bi-house-door"></i> Home
+    </a>
+    <a href="{% url 'task:tags-list' %}" class="list-group-item list-group-item-action {% if '/tags/' in request.path %}active{% endif %}">
+      <i class="bi bi-tags"></i> Tags
+    </a>
+  </div>
+</div>
