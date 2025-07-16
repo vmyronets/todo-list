@@ -43,3 +43,8 @@ class TaskDeleteView(generic.DeleteView):
     template_name = "task/task_confirm_delete.html"
 
 
+def toggle_task_status(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_done = not task.is_done
+    task.save()
+    return redirect("task:index")
