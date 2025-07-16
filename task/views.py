@@ -48,3 +48,11 @@ def toggle_task_status(request, pk):
     task.is_done = not task.is_done
     task.save()
     return redirect("task:index")
+
+
+class TagListView(generic.ListView):
+    model = Tag
+    template_name = "task/tag_list.html"
+    context_object_name = "tag_list"
+
+
